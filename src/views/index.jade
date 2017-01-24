@@ -8,7 +8,7 @@ block content
     table.table.table-striped.table-bordered
       tr
         td Name
-        td Category
+        td.category Category
         td Date
         td Complete
       if (typeof tasks === "undefined")
@@ -18,7 +18,7 @@ block content
         each task in tasks
           tr
             td #{task.name}
-            td #{task.category}
+            td.category #{task.category}
             - var date  = new Date(task.date);
             - var day   = date.getDate();
             - var month = date.getMonth() + 1;
