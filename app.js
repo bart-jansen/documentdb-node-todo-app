@@ -32,9 +32,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 var docDbClient = new DocumentDBClient(config.host, {
     masterKey: config.authKey
 });
+
+//make always run
+process.on('uncaughtException', function (err) {
+  console.log('Caught exception: ' + err);
+});
+
+
 var taskDao = new TaskDao(docDbClient, config.databaseId, config.collectionId);
 var taskList = new TaskList(taskDao);
-taskDao.init(function(err) { if(err) throw err; });
+taskDao.init(function(err) { if(err) console.log('err', err); throw new Error('whoops'); });
 
 app.get('/', taskList.showTasks.bind(taskList));
 app.post('/addtask', taskList.addTask.bind(taskList));
