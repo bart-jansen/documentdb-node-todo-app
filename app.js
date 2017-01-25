@@ -41,7 +41,7 @@ process.on('uncaughtException', function (err) {
 
 var taskDao = new TaskDao(docDbClient, config.databaseId, config.collectionId);
 var taskList = new TaskList(taskDao);
-taskDao.init(function(err) { if(err) console.log('err', err); throw new Error('whoops'); });
+taskDao.init(function(err) { if(err) console.log('err', err); throw new Error('cant connect to database'); });
 
 app.get('/', taskList.showTasks.bind(taskList));
 app.post('/addtask', taskList.addTask.bind(taskList));
